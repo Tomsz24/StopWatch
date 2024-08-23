@@ -1,0 +1,42 @@
+.action-button {
+    font-size: 26px;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 25px;
+    margin: 0 5px;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+
+.start {
+    background-color: green;
+}
+
+.start:hover {
+    background-color: #009900;
+}
+
+.stop {
+    background-color: red;
+}
+
+.stop:hover {
+    background-color: #FF3333;
+}
+
+.reset {
+    background-color: darkorange;
+}
+
+.reset:hover {
+    background-color: #FFAE22;
+}
+
+
+.lap {
+    background-color: dodgerblue;
+}
+
+.lap:hover {
+    background-color: #2FA1FF;
+}
