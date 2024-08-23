@@ -9,6 +9,7 @@ export const App = () => {
   const [counter, setCounter] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const intervalRef = useRef<number | null>(null);
+  const [savedLaps, setSavedLaps] = useState<number[]>([])
 
   const action = () => {
     console.log("Button clicked");
@@ -33,6 +34,13 @@ export const App = () => {
     setIsRunning(false);
   }
 
+  const saveLap = () => {
+    if (!isRunning && !!counter) {
+      return;
+    }
+    setSavedLaps(prevState => [...prevState, counter]);
+  }
+
   const showBasicButton = isRunning ? <ActionButton actionName={'stop'} action={stopAction}/> :
     <ActionButton actionName={'start'} action={startAction}/>;
   return (
@@ -44,9 +52,8 @@ export const App = () => {
       <div>
         {showBasicButton}
         <ActionButton actionName={'reset'} action={action}/>
-        <ActionButton actionName={'lap'} action={action}/>
+        <ActionButton actionName={'lap'} action={saveLap}/>
       </div>
-
       <Table/>
     </div>
   )
