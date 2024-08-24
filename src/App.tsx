@@ -11,8 +11,9 @@ export const App = () => {
   const intervalRef = useRef<number | null>(null);
   const [savedLaps, setSavedLaps] = useState<number[]>([])
 
-  const action = () => {
-    console.log("Button clicked");
+  const resetAction = () => {
+    setCounter(0);
+    setSavedLaps([]);
   }
 
   const startAction = () => {
@@ -51,10 +52,10 @@ export const App = () => {
 
       <div>
         {showBasicButton}
-        <ActionButton actionName={'reset'} action={action}/>
+        <ActionButton actionName={'reset'} action={resetAction}/>
         <ActionButton actionName={'lap'} action={saveLap}/>
       </div>
-      <Table/>
+      <Table lapsArray={savedLaps}/>
     </div>
   )
 }
