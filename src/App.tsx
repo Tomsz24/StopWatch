@@ -6,40 +6,55 @@ import {ActionButton} from "./components/ActionButton/ActionButton.tsx";
 import {Table} from "./components/Table/Table.tsx";
 
 export const App = () => {
-  const [counter, setCounter] = useState(0);
+  const [runCounter, setRunCounter] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const intervalRef = useRef<number | null>(null);
+  const intervalRunRef = useRef<number | null>(null);
+  const intervalLapRef = useRef<number | null>(null);
   const [savedLaps, setSavedLaps] = useState<number[]>([])
+  const [lapCounter, setLapCounter] = useState<number>(0);
 
   const resetAction = () => {
-    setCounter(0);
+    setRunCounter(0);
+    setLapCounter(0);
     setSavedLaps([]);
   }
 
   const startAction = () => {
     setIsRunning(true);
-    if (intervalRef.current !== null) {
+    if (intervalRunRef.current !== null) {
       return;
     }
-    intervalRef.current = setInterval(() => {
-      setCounter(prevState => prevState + 100);
+    intervalRunRef.current = setInterval(() => {
+      setRunCounter(prevState => prevState + 100);
+    }, 100);
+    if (intervalLapRef.current !== null) {
+      return;
+    }
+    intervalLapRef.current = setInterval(() => {
+      setLapCounter(prevState => prevState + 100);
     }, 100);
   }
 
   const stopAction = () => {
-    if (intervalRef.current === null) {
+    if (intervalRunRef.current === null) {
       return;
     }
-    clearInterval(intervalRef.current);
-    intervalRef.current = null;
+    if (intervalLapRef.current === null) {
+      return;
+    }
+    clearInterval(intervalRunRef.current);
+    clearInterval(intervalLapRef.current);
+    intervalLapRef.current = null;
+    intervalRunRef.current = null;
     setIsRunning(false);
   }
 
   const saveLap = () => {
-    if (!isRunning && !!counter) {
+    if (!isRunning && !!runCounter && !!lapCounter) {
       return;
     }
-    setSavedLaps(prevState => [...prevState, counter]);
+    setSavedLaps(prevState => [...prevState, lapCounter]);
+    setLapCounter(0);
   }
 
   const showBasicButton = isRunning ? <ActionButton actionName={'stop'} action={stopAction}/> :
@@ -48,7 +63,8 @@ export const App = () => {
     <div className="wrapper">
       <Title/>
 
-      <Counter time={counter}/>
+      <Counter time={runCounter} title={"Run time"}/>
+      <Counter time={lapCounter} title={"Lap time"}/>
 
       <div className="buttons-wrapper">
         {showBasicButton}
