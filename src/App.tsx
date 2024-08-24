@@ -50,7 +50,7 @@ export const App = () => {
 
       <Counter time={counter}/>
 
-      <div>
+      <div className="buttons-wrapper">
         {showBasicButton}
         <ActionButton actionName={'reset'} action={resetAction}/>
         <ActionButton actionName={'lap'} action={saveLap}/>

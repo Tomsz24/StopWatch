@@ -1,0 +1,18 @@
+.lap-cell {
+    padding: 5px;
+    border-bottom: 1px solid white;
+}
+
+.number-cell {
+    padding: 5px;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+}
+
+tr:last-child .lap-cell {
+    border-bottom: none;
+}
+
+tr:last-child .number-cell {
+    border-bottom: none;
+}
