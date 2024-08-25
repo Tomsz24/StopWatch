@@ -13,7 +13,7 @@ export const Table = ({lapsArray = []}: Props) => {
   </tr>
 
   const renderContent = lapsArray.length ? lapsArray.map(
-    (lap, index) => <TableRecord lap={lap} index={index} key={lap}/>) : emptyArrayInformation
+    (lap, index) => <TableRecord lap={lap} index={index} key={index}/>) : emptyArrayInformation
 
   return (
     <table>

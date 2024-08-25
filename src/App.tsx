@@ -4,6 +4,7 @@ import {Title} from "./components/Title/Title.tsx";
 import {Counter} from "./components/Counter/Counter.tsx";
 import {ActionButton} from "./components/ActionButton/ActionButton.tsx";
 import {Table} from "./components/Table/Table.tsx";
+import {ScoreBoard} from "./components/ScoreBoard/ScoreBoard.tsx";
 
 export const App = () => {
   const [runCounter, setRunCounter] = useState(0);
@@ -59,6 +60,10 @@ export const App = () => {
 
   const showBasicButton = isRunning ? <ActionButton actionName={'stop'} action={stopAction}/> :
     <ActionButton actionName={'start'} action={startAction}/>;
+
+  const results = !isRunning && !!savedLaps.length ? <ScoreBoard savedLaps={savedLaps} runCounter={runCounter}/> :
+    <Table lapsArray={savedLaps}/>
+  
   return (
     <div className="wrapper">
       <Title/>
@@ -71,7 +76,7 @@ export const App = () => {
         <ActionButton actionName={'reset'} action={resetAction}/>
         <ActionButton actionName={'lap'} action={saveLap}/>
       </div>
-      <Table lapsArray={savedLaps}/>
+      {results}
     </div>
   )
 }
